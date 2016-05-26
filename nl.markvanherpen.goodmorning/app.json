@@ -1,0 +1,32 @@
+{
+    "id": "nl.markvanherpen.goodmorning",
+    "name": {
+        "en": "Good Morning"
+    },
+    "version": "0.0.1",
+    "compatibility": "0.x || 1.x",
+    "author": {
+        "name": "Mark van Herpen",
+        "email": "mark@v-herpen.nl"
+    },
+    "permissions": [
+        "homey:manager:speech-input",
+        "homey:manager:speech-output"
+    ],
+    "speech": [
+        {
+            "id": "goodmorning",
+            "importance": 0.6,
+                "triggers": {
+                    "en": [
+                        "goodmorning"
+                    ],
+                    "nl": [
+                        "goedemorgen",
+                        "goede morgen",
+                        "morgen"
+                    ]
+                }
+        }
+    ]
+}
