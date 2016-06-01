@@ -39,8 +39,7 @@ function getDecentDateTime(language) {
         return getDayName(date.getDay()) +
             " " + dayNum +
             " " + getMonthName(date.getMonth()) +
-            " , " + hour + " uur " +
-            " " + minutes;
+            " , " + getSpokenNLTime(minutes, hour);
     }
     // TODO: Implement correct sequence for English notation
     return getDayName(date.getDay()) +
@@ -48,6 +47,65 @@ function getDecentDateTime(language) {
         " " + getMonthName(date.getMonth()) +
         " , " + hour +
         " " + minutes;
+}
+
+/**
+ * Returns the spoken time for Dutch language
+ *
+ * @param minutes
+ * @param hour
+ * @returns {string}
+ */
+function getSpokenNLTime(minutes, hour) {
+    var minuteTekst = 'minuten';
+    if (minutes == 1 || minutes == 29 || minutes == 31 || minutes == 59)
+        minuteTekst = 'minuut';
+
+    if (hour > 12) {
+        hour = hour - 12;
+    }
+    if (hour == 0) {
+        hour = 12;
+    }
+
+    // Until 'kwart over'
+    if (minutes <= 15) {
+        if (minutes == 0) {
+            return hour + " uur";
+        }
+        if (minutes == 15) {
+            return " kwart over " + hour;
+        }
+        // 1 - 14
+        else {
+            return minutes + " " + minuteTekst + " over " + hour;
+        }
+    }
+    // After 'kwart-over'
+    else {
+        // Add 1 to hour
+        hour++;
+        if (hour > 12) {
+            hour = hour - 12;
+        }
+
+        if (minutes >= 16 && minutes <= 29) {
+            return (30 - minutes) + " " + minuteTekst + " voor half " + hour;
+        }
+        if (minutes == 30) {
+            return "half " + hour;
+        }
+        if (minutes >= 31 && minutes <= 44) {
+            return (minutes - 30) + " " + minuteTekst + " over half " + hour;
+        }
+        if (minutes == 45) {
+            return "kwart voor " + hour;
+        }
+        if (minutes >= 46 && minutes <= 59) {
+            return (60 - minutes) + " " + minuteTekst +  " voor " + hour;
+        }
+    }
+    return 'geen idee hoe laat het is..';
 }
 
 /**
